@@ -1,0 +1,29 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: todo-api
+    ports:
+      - "4000:4000"
+    environment:
+      FRONTEND_URL: 'http://localhost:3000'
+    volumes:
+      - todo-data:/db/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: todo-client
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  todo-data:
+
+         
+    
